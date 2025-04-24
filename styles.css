@@ -1,0 +1,7 @@
+.center {
+    display: flex;
+    justify-content: center;
+}
+#canvas {
+    margin: 0 auto;
+}
