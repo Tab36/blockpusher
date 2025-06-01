@@ -91,43 +91,56 @@ levelnum = 0
 
 dir = [0,0]
 pressed = [false, false, false, false]
-keys = {"ArrowUp": 0, "ArrowDown": 1, "ArrowRight": 2, "ArrowLeft": 3, }
-let reset = false
+let pressedkey = null
+let keyup = false
+let mobilepress = null
 
 document.addEventListener("keydown", (e) => {
+    pressedkey = e.key
+});
 
-    if (!pressed[0] && e.key == "ArrowUp") {
+let keydetect = () => {
+    if ((!pressed[0] && pressedkey == "ArrowUp") || mobilepress == 0) {
         dir = [0,-1];
         pressed[0] = true;
     }
 
-    if (!pressed[1] && e.key == "ArrowDown") {
+    if (!pressed[1] && pressedkey == "ArrowDown" || mobilepress == 1) {
         dir = [0,1];
         pressed[1] = true;
     }
 
-    if (!pressed[2] && e.key == "ArrowRight") {
+    if (!pressed[2] && pressedkey == "ArrowRight" || mobilepress == 2) {
         dir = [1,0];
         pressed[2] = true;
     }
 
-    if (!pressed[3] && e.key == "ArrowLeft") {
+    if (!pressed[3] && pressedkey == "ArrowLeft" || mobilepress == 3) {
         dir = [-1,0];
         pressed[3] = true;
     }
 
-    if (e.key == "r") {
-        reset = true
+    if (pressedkey == "r") {
+        set(levelnum)
     }
 
-    if (e.key == "|") {
+    if (pressedkey == "|") {
         switchlevel = prompt()
         set(switchlevel)
-    } 
+    }
 
-});
+    pressedkey = null
+    mobilepress = null
+}
 
-document.addEventListener("keyup", (e) => {pressed[keys[e.key]] = false; dir = [0,0]; reset = false});
+document.addEventListener("keyup", (e) => {keyup = true});
+
+let keyupdetect = () => {
+    if (keyup) {
+        pressed = [false, false, false, false];
+        dir = [0,0];
+    }
+}
 
 let mouseup = false
 document.addEventListener("mouseup", (e) => mouseup = true);
@@ -171,23 +184,27 @@ function set(num) {
 map = load(levelnum, 8,8);
 player = leveldata[levelnum][1]
 let advancelevel = false
+let focused = false
+
 setInterval(() => {
 
     ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    keydetect();
     if (pressed.includes(true)) {
-        advancelevel = true
-        move()
+        advancelevel = true;
+        move();
         
         for (let i=0; i<map.length; i++) {
             if (map[i].includes(4)) {
-                advancelevel = false
-                break
+                advancelevel = false;
+                break;
             }
         }
 
         dir = [0,0]
     }
+    keyupdetect();
 
     draw(64);
     drawImg(5, player[0], player[1], 64)
@@ -195,14 +212,13 @@ setInterval(() => {
     if (advancelevel) {
         ctx.fillStyle = "rgba(200, 200, 200, 0.6)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-
         if (levelnum == leveldata.length) {
             drawImg(7, 0, 0, canvas.width)
         } else {
             drawImg(6, 0, 0, canvas.width)
         }
         
-        if (mouseup && !(levelnum == leveldata.length)) {
+        if (mouseup && !(levelnum == leveldata.length) && focused) {
             levelnum++
             map = load(levelnum, 8,8)
             player = leveldata[levelnum][1]
@@ -210,10 +226,6 @@ setInterval(() => {
         }
     }
 
-    if (reset) {
-        set(levelnum)
-    }
-
     mouseup = false
-    
+    log(focused)
 }, 1000/500)
