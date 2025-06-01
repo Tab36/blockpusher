@@ -4,10 +4,21 @@
     <title>Block Pusher</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="player.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
   <body>
     <h1 class="center">Block Pusher</h1>
-    <canvas id="canvas" width="512" height="512" style="border-style: solid" class="center"></canvas>
+    <canvas id="canvas" width="512" height="512" style="border-style: solid" class="center" tabindex="0" onfocus="focused = true" onblur="focused = false"></canvas>
+    <div class="flex center buttondiv">
+      <button id="lt" class="fill" onclick="mobilepress = 3"><i class="fa-regular fa-square-caret-left"></i></button>
+      <div class="flex col buttondiv">
+        <button id="up" class="fill" onclick="mobilepress = 0"><i class="fa-regular fa-square-caret-up"></i></button>
+        <button id="up" class="fill" onclick="set(levelnum)"><i class="fa-solid fa-rotate-right"></i></i></button>
+        <button id="dn" class="fill" onclick="mobilepress = 1"><i class="fa-regular fa-square-caret-down"></i></button>
+      </div>
+      <button id="wt" class="fill" onclick="mobilepress = 2"><i class="fa-regular fa-square-caret-right"></i></button>
+    </div>
+    <br>
     <script src="scripts.js"></script>
   </body>
 </html>
