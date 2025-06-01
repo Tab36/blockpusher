@@ -1,7 +1,56 @@
+html, body {
+    margin: auto;
+}
+
 .center {
     display: flex;
     justify-content: center;
-}
-#canvas {
     margin: 0 auto;
+}
+
+#canvas {
+    margin: 30px auto;
+}
+
+.buttondiv {
+    width: max-content;
+    display: inline-flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.fill {
+    height: 80px;
+    width: 100px;
+    margin: auto;
+}
+
+.flex {
+    display: flex;
+    margin: auto;
+    gap: 10px;
+}
+
+.col {
+    flex-direction: column;
+}
+
+button {
+    width: 100px;
+    background-color: limegreen;
+    border: 3px solid limegreen;
+    border-radius: 8px;
+    color: black;
+    text-align: center;
+    transition-duration: 0.2s;
+    display: inline-block;
+    font-size: 3em;
+    margin: auto;
+    box-shadow: 0 6px #999;
+}
+
+button:active {
+    color: black;
+    box-shadow: 0 4px #666;
+    transform: translateY(2px);
 }
