@@ -99,23 +99,39 @@ document.addEventListener("keydown", (e) => {
     pressedkey = e.key
 });
 
+let mouseX = 0;
+let mouseY = 0;
+let mousedown = false;
+let rect;
+canvas.addEventListener("mousedown", (e) => {
+    rect = canvas.getBoundingClientRect();
+
+    mouseX = e.clientX - rect.left-rect.height;
+    mouseY = e.clientY - rect.top;
+    mousedown = true
+
+});
+
+let mouseup = false
+document.addEventListener("mouseup", (e) => mouseup = true);
+
 let keydetect = () => {
-    if ((!pressed[0] && pressedkey == "ArrowUp") || mobilepress == 0) {
+    if ((!pressed[0] && pressedkey == "ArrowUp") || mobilepress == 0 || (mousedown && mouseX < mouseY && mouseX > -mouseY)) {
         dir = [0,-1];
         pressed[0] = true;
     }
 
-    if (!pressed[1] && pressedkey == "ArrowDown" || mobilepress == 1) {
+    if (!pressed[1] && pressedkey == "ArrowDown" || mobilepress == 1 || (mousedown && mouseX > mouseY && mouseX < -mouseY)) {
         dir = [0,1];
         pressed[1] = true;
     }
 
-    if (!pressed[2] && pressedkey == "ArrowRight" || mobilepress == 2) {
+    if (!pressed[2] && pressedkey == "ArrowRight" || mobilepress == 2 || (mousedown && mouseX > mouseY && mouseX > -mouseY)) {
         dir = [1,0];
         pressed[2] = true;
     }
 
-    if (!pressed[3] && pressedkey == "ArrowLeft" || mobilepress == 3) {
+    if (!pressed[3] && pressedkey == "ArrowLeft" || mobilepress == 3 || (mousedown && mouseX < mouseY && mouseX < -mouseY)) {
         dir = [-1,0];
         pressed[3] = true;
     }
@@ -141,9 +157,6 @@ let keyupdetect = () => {
         dir = [0,0];
     }
 }
-
-let mouseup = false
-document.addEventListener("mouseup", (e) => mouseup = true);
 
 function check(mult, list) {
     for (let i=0; i<list.length; i++) {
@@ -227,5 +240,6 @@ setInterval(() => {
     }
 
     mouseup = false
+    mousedown = false
     log(focused)
 }, 1000/500)
