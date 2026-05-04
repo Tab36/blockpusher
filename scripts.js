@@ -106,8 +106,8 @@ let rect;
 canvas.addEventListener("mousedown", (e) => {
     rect = canvas.getBoundingClientRect();
 
-    mouseX = e.clientX - rect.left-rect.height;
-    mouseY = e.clientY - rect.top;
+    mouseX = e.clientX - rect.left - (rect.height/2);
+    mouseY = e.clientY - rect.top - (rect.height/2);
     mousedown = true
 
 });
