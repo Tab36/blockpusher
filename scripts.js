@@ -116,12 +116,12 @@ let mouseup = false
 document.addEventListener("mouseup", (e) => mouseup = true);
 
 let keydetect = () => {
-    if ((!pressed[0] && pressedkey == "ArrowUp") || mobilepress == 0 || (mousedown && mouseX < mouseY && mouseX > -mouseY)) {
+    if ((!pressed[0] && pressedkey == "ArrowUp") || mobilepress == 0 || (mousedown && mouseX > mouseY && mouseX < -mouseY)) {
         dir = [0,-1];
         pressed[0] = true;
     }
 
-    if (!pressed[1] && pressedkey == "ArrowDown" || mobilepress == 1 || (mousedown && mouseX > mouseY && mouseX < -mouseY)) {
+    if (!pressed[1] && pressedkey == "ArrowDown" || mobilepress == 1 || (mousedown && mouseX < mouseY && mouseX > -mouseY)) {
         dir = [0,1];
         pressed[1] = true;
     }
