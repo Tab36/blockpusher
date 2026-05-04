@@ -21,7 +21,7 @@ map = []
 let imgList = ["blank.png", "brick.png", "block.png", "block_done.png", "goal.png", "player.png", "next.svg", "win.svg"];
 for (let i=0; i<imgList.length; i++) {
     let loadimg = new Image();
-    loadimg.src = imgList[i];
+    loadimg.src = "img/"+imgList[i];
     imgList[i] = loadimg
     loadimg.complete = () => [imgList[i] = loadimg]
 }
